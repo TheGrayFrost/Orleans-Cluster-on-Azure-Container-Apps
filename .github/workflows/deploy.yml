@@ -68,7 +68,7 @@ jobs:
     - name: Get ACR Login Server
       run: |
         # Retrieve ACR Login Server value from deployment output
-        ACR_LOGIN_SERVER=$(az deployment group show -g ${{ env.RESOURCE_GROUP_NAME }} -n main --query properties.outputs.acrLoginServer.value | tr -d '"')
+        ACR_LOGIN_SERVER="p7cjk5h6h6t5iacr.azurecr.io"
         echo "ACR_LOGIN_SERVER=$ACR_LOGIN_SERVER" >> $GITHUB_ENV
 
     - name: Set up Docker Buildx
@@ -146,7 +146,7 @@ jobs:
     - name: Get ACR Login Server
       run: |
         # Retrieve ACR Login Server value from deployment output
-        ACR_LOGIN_SERVER=$(az deployment group show -g ${{ env.RESOURCE_GROUP_NAME }} -n main --query properties.outputs.acrLoginServer.value | tr -d '"')
+        ACR_LOGIN_SERVER="p7cjk5h6h6t5iacr.azurecr.io"
         echo "ACR_LOGIN_SERVER=$ACR_LOGIN_SERVER" >> $GITHUB_ENV
 
     - name: Deploy Silo
