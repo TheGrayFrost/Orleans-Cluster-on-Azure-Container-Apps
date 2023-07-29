@@ -29,36 +29,27 @@ env:
   SCALER_IMAGE_NAME: scaler
 
 jobs:
-  # provision:
-  #   runs-on: ubuntu-latest
+  provision:
+    runs-on: ubuntu-latest
 
-  #   steps:
+    steps:
 
-  #   - name: Checkout to the branch
-  #     uses: actions/checkout@v2
+    - name: Checkout to the branch
+      uses: actions/checkout@v2
 
-  #   - name: Azure Login
-  #     uses: azure/login@v1
-  #     with:
-  #       creds: ${{ secrets.AzureSPN }}
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AzureSPN }}
 
-  #   - name: Create resource group
-  #     uses: azure/CLI@v1
-  #     with:
-  #       inlineScript: >
-  #         echo "Creating resource group in Azure"
-  #         echo "Executing 'az group create -l ${{ env.REGION }} -n ${{ env.RESOURCE_GROUP_NAME }}'"
+    - name: Create resource group
+      uses: azure/CLI@v1
+      with:
+        inlineScript: >
+          echo "Creating resource group in Azure"
+          echo "Executing 'az group create -l ${{ env.REGION }} -n ${{ env.RESOURCE_GROUP_NAME }}'"
 
-  #         az group create -l ${{ env.REGION }} -n ${{ env.RESOURCE_GROUP_NAME }}
-
-  #   - name: Creating resources
-  #     uses: azure/CLI@v1
-  #     with:
-  #       inlineScript: >
-  #         echo "Creating resources"
-  #         echo "Executing az deployment group create --resource-group ${{ env.RESOURCE_GROUP_NAME }} --template-file 'Azure/main.bicep' --debug"
-
-  #         az deployment group create --resource-group ${{ env.RESOURCE_GROUP_NAME }} --template-file 'Azure/main.bicep' --debug
+          az group create -l ${{ env.REGION }} -n ${{ env.RESOURCE_GROUP_NAME }}
 
   build:
     runs-on: ubuntu-latest
