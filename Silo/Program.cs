@@ -1,3 +1,4 @@
+using System.Net;
 using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseOrleans(siloBuilder =>
 {
+    var hostName = Dns.GetHostName();
     siloBuilder
         .Configure<ClusterOptions>(options =>
         {
@@ -17,6 +19,7 @@ builder.Host.UseOrleans(siloBuilder =>
             options.SiloName = "Silo";
         })
         .ConfigureEndpoints(
+            hostname: hostName,
             siloPort: 11_111,
             gatewayPort: 30_000,
             listenOnAnyHostAddress: true)
