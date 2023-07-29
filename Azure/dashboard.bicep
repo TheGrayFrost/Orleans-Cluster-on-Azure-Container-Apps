@@ -12,11 +12,12 @@ param maxReplicas int = 1
 @secure()
 param registryPassword string
 
-resource containerApp 'Microsoft.App/containerApps@2022-01-01-preview' ={
+resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' ={
   name: name
   location: location
   properties:{
     managedEnvironmentId: containerAppEnvironmentId
+    workloadProfileName: 'dedicated'
     configuration: {
       activeRevisionsMode: 'single'
       secrets: [

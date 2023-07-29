@@ -17,6 +17,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-01-01-preview' ={
   location: location
   properties:{
     managedEnvironmentId: containerAppEnvironmentId
+    workloadProfileName: 'dedicated'
     configuration: {
       secrets: [
         {
