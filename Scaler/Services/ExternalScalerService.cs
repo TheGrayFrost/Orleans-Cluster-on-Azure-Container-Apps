@@ -12,7 +12,7 @@ namespace Scaler.Services
         IManagementGrain _managementGrain;
         string _metricName = "grainThreshold";
 
-        public ExternalScalerService(ILogger<ExternalScalerService> logger, 
+        public ExternalScalerService(ILogger<ExternalScalerService> logger,
             IClusterClient orleansClusterClient)
         {
             _logger = logger;
@@ -21,7 +21,7 @@ namespace Scaler.Services
             _managementGrain = OrleansClusterClient.GetGrain<IManagementGrain>(0);
         }
 
-        public override async Task<GetMetricsResponse> GetMetrics(GetMetricsRequest request, 
+        public override async Task<GetMetricsResponse> GetMetrics(GetMetricsRequest request,
             ServerCallContext context)
         {
             CheckRequestMetadata(request.ScaledObjectRef);
@@ -57,7 +57,7 @@ namespace Scaler.Services
             return response;
         }
 
-        public override Task<GetMetricSpecResponse> GetMetricSpec(ScaledObjectRef request, 
+        public override Task<GetMetricSpecResponse> GetMetricSpec(ScaledObjectRef request,
             ServerCallContext context)
         {
             CheckRequestMetadata(request);
@@ -73,7 +73,7 @@ namespace Scaler.Services
             return Task.FromResult(resp);
         }
 
-        public override async Task StreamIsActive(ScaledObjectRef request, 
+        public override async Task StreamIsActive(ScaledObjectRef request,
             IServerStreamWriter<IsActiveResponse> responseStream, ServerCallContext context)
         {
             CheckRequestMetadata(request);

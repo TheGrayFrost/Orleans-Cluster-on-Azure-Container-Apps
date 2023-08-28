@@ -8,7 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddWebAppApplicationInsights("Dashboard");
 builder.Host.UseOrleans(siloBuilder =>
 {
-    var hostName = Dns.GetHostName();
     siloBuilder
         .Configure<ClusterOptions>(options =>
         {
@@ -19,11 +18,7 @@ builder.Host.UseOrleans(siloBuilder =>
         {
             options.SiloName = "Dashboard";
         })
-        .ConfigureEndpoints(
-            hostname: hostName,
-            siloPort: 11_112,
-            gatewayPort: 30_001,
-            listenOnAnyHostAddress: true)
+        .ConfigureEndpoints(siloPort: 11_112, gatewayPort: 30_001)
         .UseAzureStorageClustering(options => options.ConfigureTableServiceClient(builder.Configuration.GetValue<string>("StorageConnectionString")))
         .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(SensorTwinGrain).Assembly).WithReferences())
         .UseDashboard(config =>

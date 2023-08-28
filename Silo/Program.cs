@@ -7,7 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseOrleans(siloBuilder =>
 {
-    var hostName = Dns.GetHostName();
     siloBuilder
         .Configure<ClusterOptions>(options =>
         {
@@ -18,13 +17,8 @@ builder.Host.UseOrleans(siloBuilder =>
         {
             options.SiloName = "Silo";
         })
-        .ConfigureEndpoints(
-            hostname: hostName,
-            siloPort: 11_111,
-            gatewayPort: 30_000,
-            listenOnAnyHostAddress: true)
-        .UseAzureStorageClustering(options => options.ConfigureTableServiceClient(builder.Configuration.GetValue<string>("StorageConnectionString")))
-        ;
+        .ConfigureEndpoints(siloPort: 11_111, gatewayPort: 30_000)
+        .UseAzureStorageClustering(options => options.ConfigureTableServiceClient(builder.Configuration.GetValue<string>("StorageConnectionString")));
 });
 
 builder.Services.AddWebAppApplicationInsights("Silo");

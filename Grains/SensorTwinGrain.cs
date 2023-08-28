@@ -13,7 +13,7 @@ namespace Grains
 
         public SensorTwinGrain(ILogger<SensorTwinGrain> logger) => Logger = logger;
 
-        public async Task ReceiveSensorState(SensorState sensorState) => 
+        public async Task ReceiveSensorState(SensorState sensorState) =>
             await Task.Run(() => Logger.LogInformation($"Received value of {sensorState.Value} for {sensorState.Type} state reading from sensor {this.GetGrainIdentity().PrimaryKeyString}"));
 
     }

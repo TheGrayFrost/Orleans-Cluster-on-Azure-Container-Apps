@@ -6,12 +6,12 @@ on:
     - main
 
 env:
-  
+
   # alphanumeric string under 14 characters
-  RESOURCE_GROUP_NAME: orleans-rg
+  RESOURCE_GROUP_NAME: aca-rg
 
   # specify your preferred region
-  REGION: eastus
+  REGION: eastus2euap
 
   SILO_DOCKER_FILE_PATH: Silo/Dockerfile
   SILO_IMAGE_NAME: silo
@@ -54,7 +54,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs: provision
-    
+
     steps:
 
     - name: Checkout to the branch
@@ -90,7 +90,7 @@ jobs:
         push: true
         tags: ${{ env.ACR_LOGIN_SERVER }}/${{ env.SILO_IMAGE_NAME }}:${{ github.sha }}
         file: ${{ env.SILO_DOCKER_FILE_PATH }}
-    
+
     - name: Build and push Dashboard image to registry
       uses: docker/build-push-action@v2
       with:
@@ -154,7 +154,7 @@ jobs:
       with:
         inlineScript: >
           echo "Deploying Silo"
-          
+
           az containerapp registry set -n silo -g ${{ env.RESOURCE_GROUP_NAME }} --server ${{ env.ACR_LOGIN_SERVER }}
 
           az containerapp update -n silo -g ${{ env.RESOURCE_GROUP_NAME }} -i ${{ env.ACR_LOGIN_SERVER }}/${{ env.SILO_IMAGE_NAME }}:${{ github.sha }}
@@ -164,7 +164,7 @@ jobs:
       with:
         inlineScript: >
           echo "Deploying Dashboard"
-          
+
           az containerapp registry set -n dashboard -g ${{ env.RESOURCE_GROUP_NAME }} --server ${{ env.ACR_LOGIN_SERVER }}
 
           az containerapp update -n dashboard -g ${{ env.RESOURCE_GROUP_NAME }} -i ${{ env.ACR_LOGIN_SERVER }}/${{ env.DASHBOARD_IMAGE_NAME }}:${{ github.sha }}
@@ -174,7 +174,7 @@ jobs:
       with:
         inlineScript: >
           echo "Deploying Minimal API Client"
-          
+
           az containerapp registry set -n minimalapiclient -g ${{ env.RESOURCE_GROUP_NAME }} --server ${{ env.ACR_LOGIN_SERVER }}
 
           az containerapp update -n minimalapiclient -g ${{ env.RESOURCE_GROUP_NAME }} -i ${{ env.ACR_LOGIN_SERVER }}/${{ env.MINIMAL_CLIENT_IMAGE_NAME }}:${{ github.sha }}
@@ -184,7 +184,7 @@ jobs:
       with:
         inlineScript: >
           echo "Deploying Worker Service Client"
-          
+
           az containerapp registry set -n workerserviceclient -g ${{ env.RESOURCE_GROUP_NAME }} --server ${{ env.ACR_LOGIN_SERVER }}
 
           az containerapp update -n workerserviceclient -g ${{ env.RESOURCE_GROUP_NAME }} -i ${{ env.ACR_LOGIN_SERVER }}/${{ env.WORKERSERVICE_CLIENT_IMAGE_NAME }}:${{ github.sha }}
@@ -194,7 +194,7 @@ jobs:
       with:
         inlineScript: >
           echo "Deploying Scaler"
-          
+
           az containerapp registry set -n scaler -g ${{ env.RESOURCE_GROUP_NAME }} --server ${{ env.ACR_LOGIN_SERVER }}
 
           az containerapp update -n scaler -g ${{ env.RESOURCE_GROUP_NAME }} -i ${{ env.ACR_LOGIN_SERVER }}/${{ env.SCALER_IMAGE_NAME }}:${{ github.sha }}

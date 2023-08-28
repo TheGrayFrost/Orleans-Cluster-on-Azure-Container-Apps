@@ -17,14 +17,14 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' ={
   location: location
   properties:{
     managedEnvironmentId: containerAppEnvironmentId
-    workloadProfileName: 'dedicated'
+    workloadProfileName: 'consumption'
     configuration: {
       secrets: [
         {
           name: 'container-registry-password'
           value: registryPassword
         }
-      ]      
+      ]
       registries: [
         {
           server: registry
