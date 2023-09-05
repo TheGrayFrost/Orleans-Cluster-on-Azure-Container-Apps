@@ -5,7 +5,7 @@ param repositoryImage string = 'mcr.microsoft.com/azuredocs/containerapps-hellow
 param envVars array = []
 param registry string
 param registryUsername string
-param minReplicas int = 0
+param minReplicas int = 1
 param maxReplicas int = 10
 param scalerUrl string
 @secure()
@@ -16,7 +16,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' ={
   location: location
   properties: {
     managedEnvironmentId: containerAppEnvironmentId
-    workloadProfileName: 'consumption'
+    workloadProfileName: 'dedicated'
     configuration: {
       activeRevisionsMode: 'multiple'
       secrets: [

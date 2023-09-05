@@ -13,7 +13,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' ={
   location: location
   properties:{
     managedEnvironmentId: containerAppEnvironmentId
-    workloadProfileName: 'consumption'
+    workloadProfileName: 'dedicated'
     configuration: {
       activeRevisionsMode: 'single'
       secrets: [
@@ -45,7 +45,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' ={
         }
       ]
       scale: {
-        minReplicas: 0
+        minReplicas: 1
         maxReplicas: 1
       }
     }

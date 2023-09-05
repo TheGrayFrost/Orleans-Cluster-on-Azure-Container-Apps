@@ -7,7 +7,7 @@ param allowExternalIngress bool = false
 param targetIngressPort int = 80
 param registry string
 param registryUsername string
-param minReplicas int = 0
+param minReplicas int = 1
 param maxReplicas int = 1
 @secure()
 param registryPassword string
@@ -17,7 +17,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' ={
   location: location
   properties:{
     managedEnvironmentId: containerAppEnvironmentId
-    workloadProfileName: 'consumption'
+    workloadProfileName: 'dedicated'
     configuration: {
       secrets: [
         {
