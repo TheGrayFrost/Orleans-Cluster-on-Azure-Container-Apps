@@ -7,7 +7,7 @@ param allowExternalIngress bool = false
 param targetIngressPort int = 80
 param registry string
 param registryUsername string
-param minReplicas int = 1
+param minReplicas int = 0
 param maxReplicas int = 1
 @secure()
 param registryPassword string
