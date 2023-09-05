@@ -11,7 +11,7 @@ env:
   RESOURCE_GROUP_NAME: aca-rg
 
   # specify your preferred region
-  REGION: eastus2euap
+  REGION: northcentralus
 
   SILO_DOCKER_FILE_PATH: Silo/Dockerfile
   SILO_IMAGE_NAME: silo
