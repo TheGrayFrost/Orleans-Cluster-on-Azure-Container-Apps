@@ -17,7 +17,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' ={
   location: location
   properties:{
     managedEnvironmentId: containerAppEnvironmentId
-    workloadProfileName: 'dedicated'
+    workloadProfileName: 'consumption'
     configuration: {
       activeRevisionsMode: 'single'
       secrets: [
