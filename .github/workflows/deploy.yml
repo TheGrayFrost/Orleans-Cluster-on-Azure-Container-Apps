@@ -56,7 +56,6 @@ jobs:
       with:
         inlineScript: >
           echo "Creating resources"
-          ls -al
           echo "Executing az deployment group create --resource-group ${{ env.RESOURCE_GROUP_NAME }} --template-file 'Azure/main.bicep' --debug"
 
           az deployment group create --resource-group ${{ env.RESOURCE_GROUP_NAME }} --template-file 'Azure/main.bicep' --debug
@@ -156,7 +155,7 @@ jobs:
     - name: Get ACR Login Server
       run: |
         # Retrieve ACR Login Server value from deployment output
-        ACR_LOGIN_SERVER="p7cjk5h6h6t5iacr.azurecr.io"
+        ACR_LOGIN_SERVER=$(az deployment group show -g ${{ env.RESOURCE_GROUP_NAME }} -n main --query properties.outputs.acrLoginServer.value | tr -d '"')
         echo "ACR_LOGIN_SERVER=$ACR_LOGIN_SERVER" >> $GITHUB_ENV
 
     - name: Deploy Silo
